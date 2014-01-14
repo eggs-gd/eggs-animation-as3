@@ -20,7 +20,6 @@ package gd.eggs.customanim
 		//      PARAMETERS
 		//=====================================================================
 		private static var _activeItems:Vector.<AnimationModel> = new Vector.<AnimationModel>();
-		private static var _activeQueues:Vector.<AnimationQueueParams> = new Vector.<AnimationQueueParams>();
 
 		private static var _itemsById:Dictionary = new Dictionary();
 
@@ -64,33 +63,7 @@ package gd.eggs.customanim
 			_activeItems.splice(_activeItems.indexOf(params), 1);
 			delete _itemsById[id];
 
-			if (!_activeItems.length && _activeQueues.length) GlobalTimer.removeFrameCallback(frameUpdate);
-		}
-
-		//-----------------------------
-		//      Queue anim
-		//-----------------------------
-		public static function startQueue(params:AnimationQueueParams, id:String):void
-		{
-			if (_itemsById[id])
-			{
-				_activeQueues.splice(_activeQueues.indexOf(params), 1);
-				delete _itemsById[id];
-			}
-
-			_activeQueues.push(params);
-			_itemsById[id] = params;
-			GlobalTimer.addFrameCallback(frameUpdate);
-		}
-
-		public static function stopQueue(id:String):void
-		{
-			var params:AnimationQueueParams = _itemsById[id];
-
-			_activeQueues.splice(_activeQueues.indexOf(params), 1);
-			delete _itemsById[id];
-
-			if (!_activeItems.length && !_activeQueues.length) GlobalTimer.removeFrameCallback(frameUpdate);
+			if (!_activeItems.length) GlobalTimer.removeFrameCallback(frameUpdate);
 		}
 
 		//-----------------------------
@@ -123,13 +96,6 @@ package gd.eggs.customanim
 
 				// если анимация доиграла до конца
 				if (params.ended) stopAnimation(params);
-			}
-
-			for each (var queue:AnimationQueueParams in _activeQueues)
-			{
-				// предполагается что очередь всегда зациклена и без пауз
-				// потому не выебуемся
-				queue.play(date);
 			}
 		}
 

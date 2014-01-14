@@ -1,6 +1,5 @@
 package gd.eggs.customanim
 {
-	import flash.display.MovieClip;
 	import flash.utils.setTimeout;
 
 
@@ -51,9 +50,8 @@ package gd.eggs.customanim
 			_loop = loop;
 			_loopCount = loopCount;
 			_loopDelay = loopDelay;
-			_frameRate = frameRate;
 
-			_frameTime = 1000 / frameRate;
+			this.frameRate = frameRate;
 
 			reset();
 		}
@@ -104,14 +102,12 @@ package gd.eggs.customanim
 
 		public function isEqual(params:AnimationModel):Boolean
 		{
-			var result:Boolean =
-					(
-							_mc == params._mc
-									&& _loop == params._loop
-									&& _loopCount == params._loopCount
-									&& _loopDelay == params._loopDelay
-									&& _frameRate == params._frameRate
-							);
+			var result:Boolean = ( _mc == params._mc
+				&& _loop == params._loop
+				&& _loopCount == params._loopCount
+				&& _loopDelay == params._loopDelay
+				&& _frameRate == params._frameRate
+			);
 			return result;
 		}
 
@@ -143,6 +139,13 @@ package gd.eggs.customanim
 		}
 
 		public function get ended():Boolean { return _ended; }
+
+		public function get frameRate():int { return _frameRate; }
+		public function set frameRate(value:int):void
+		{
+			_frameRate = value;
+			_frameTime = 1000 / frameRate;
+		}
 	}
 
 }
