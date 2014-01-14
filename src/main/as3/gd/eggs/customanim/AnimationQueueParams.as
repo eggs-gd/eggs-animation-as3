@@ -7,7 +7,6 @@ package gd.eggs.customanim
 	 */
 	public class AnimationQueueParams
 	{
-
 		//=====================================================================
 		//      CONSTANTS
 		//=====================================================================
@@ -15,7 +14,7 @@ package gd.eggs.customanim
 		//=====================================================================
 		//      PARAMETERS
 		//=====================================================================
-		private var _animations:Vector.<AnimationParams>;
+		private var _animations:Vector.<AnimationModel>;
 		private var _currAnim:int;
 		//=====================================================================
 		//      CONSTRUCTOR, INIT
@@ -23,13 +22,13 @@ package gd.eggs.customanim
 		public function AnimationQueueParams()
 		{
 			_currAnim = -1;
-			_animations = new Vector.<AnimationParams>();
+			_animations = new Vector.<AnimationModel>();
 		}
 
 		//=====================================================================
 		//      PUBLIC
 		//=====================================================================
-		public function addAnimation(anim:AnimationParams):void
+		public function addAnimation(anim:AnimationModel):void
 		{
 			_animations.push(anim);
 		}

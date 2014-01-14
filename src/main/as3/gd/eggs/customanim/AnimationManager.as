@@ -19,11 +19,7 @@ package gd.eggs.customanim
 		//=====================================================================
 		//      PARAMETERS
 		//=====================================================================
-		private static var _instance:AnimationManager;
-
-		private static var _globalTimer:GlobalTimer = GlobalTimer.getInstance();
-
-		private static var _activeItems:Vector.<AnimationParams> = new Vector.<AnimationParams>();
+		private static var _activeItems:Vector.<AnimationModel> = new Vector.<AnimationModel>();
 		private static var _activeQueues:Vector.<AnimationQueueParams> = new Vector.<AnimationQueueParams>();
 
 		private static var _itemsById:Dictionary = new Dictionary();
@@ -43,7 +39,7 @@ package gd.eggs.customanim
 		//-----------------------------
 		//      Single anim
 		//-----------------------------
-		public static function startAnimation(params:AnimationParams, id:Object):void
+		public static function startAnimation(params:AnimationModel, id:Object):void
 		{
 			if (_itemsById[id])
 			{
@@ -55,12 +51,12 @@ package gd.eggs.customanim
 			_activeItems.push(params);
 			_itemsById[id] = params;
 
-			_globalTimer.addFrameCallback(frameUpdate);
+			GlobalTimer.addFrameCallback(frameUpdate);
 		}
 
 		public static function stopAnimation(id:Object):void
 		{
-			var params:AnimationParams = _itemsById[id];
+			var params:AnimationModel = _itemsById[id];
 			if (!params) return;
 
 			params.mc.stop();
@@ -68,7 +64,7 @@ package gd.eggs.customanim
 			_activeItems.splice(_activeItems.indexOf(params), 1);
 			delete _itemsById[id];
 
-			if (!_activeItems.length && _activeQueues.length) _globalTimer.removeFrameCallback(frameUpdate);
+			if (!_activeItems.length && _activeQueues.length) GlobalTimer.removeFrameCallback(frameUpdate);
 		}
 
 		//-----------------------------
@@ -84,7 +80,7 @@ package gd.eggs.customanim
 
 			_activeQueues.push(params);
 			_itemsById[id] = params;
-			_globalTimer.addFrameCallback(frameUpdate);
+			GlobalTimer.addFrameCallback(frameUpdate);
 		}
 
 		public static function stopQueue(id:String):void
@@ -94,7 +90,7 @@ package gd.eggs.customanim
 			_activeQueues.splice(_activeQueues.indexOf(params), 1);
 			delete _itemsById[id];
 
-			if (!_activeItems.length && !_activeQueues.length) _globalTimer.removeFrameCallback(frameUpdate);
+			if (!_activeItems.length && !_activeQueues.length) GlobalTimer.removeFrameCallback(frameUpdate);
 		}
 
 		//-----------------------------
@@ -103,8 +99,8 @@ package gd.eggs.customanim
 		public static function pauseAll():void
 		{
 			_pause = true;
-			_globalTimer.removeFrameCallback(frameUpdate);
-			for each(var param:AnimationParams in _activeItems)
+			GlobalTimer.removeFrameCallback(frameUpdate);
+			for each(var param:AnimationModel in _activeItems)
 			{
 				param.mc.stop();
 			}
@@ -112,7 +108,7 @@ package gd.eggs.customanim
 
 		public static function resumeAll():void
 		{
-			_globalTimer.addFrameCallback(frameUpdate);
+			GlobalTimer.addFrameCallback(frameUpdate);
 			_pause = false;
 		}
 
@@ -121,7 +117,7 @@ package gd.eggs.customanim
 		//=====================================================================
 		private static function frameUpdate(date:int):void
 		{
-			for each (var params:AnimationParams in _activeItems)
+			for each (var params:AnimationModel in _activeItems)
 			{
 				params.play(date);
 

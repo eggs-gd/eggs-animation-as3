@@ -8,7 +8,7 @@ package gd.eggs.customanim
 	 * ...
 	 * @author Dukobpa3
 	 */
-	public class AnimationParams
+	public class AnimationModel
 	{
 		//=====================================================================
 		//      CONSTANTS
@@ -17,7 +17,7 @@ package gd.eggs.customanim
 		//=====================================================================
 		//      PARAMETERS
 		//=====================================================================
-		private var _mc:MovieClip;
+		private var _mc:IAnimatable;
 		private var _loop:Boolean;
 		private var _loopCount:int;
 		private var _loopDelay:int;
@@ -45,7 +45,7 @@ package gd.eggs.customanim
 		 * @param    loopDelay - Интервал между циклами повторений
 		 * @param    frameRate - Скорость анимации
 		 */
-		public function AnimationParams(mc:MovieClip, loop:Boolean = true, loopCount:int = 1, loopDelay:int = -1, frameRate:int = 18)
+		public function AnimationModel(mc:IAnimatable, loop:Boolean = true, loopCount:int = 1, loopDelay:int = -1, frameRate:int = 18)
 		{
 			_mc = mc;
 			_loop = loop;
@@ -102,7 +102,7 @@ package gd.eggs.customanim
 			_ended = false;
 		}
 
-		public function isEqual(params:AnimationParams):Boolean
+		public function isEqual(params:AnimationModel):Boolean
 		{
 			var result:Boolean =
 					(
@@ -130,7 +130,7 @@ package gd.eggs.customanim
 		//=====================================================================
 		//      ACCESSORS
 		//=====================================================================
-		public function get mc():MovieClip { return _mc; }
+		public function get mc():IAnimatable { return _mc; }
 
 		public function get pause():Boolean { return _pause; }
 
