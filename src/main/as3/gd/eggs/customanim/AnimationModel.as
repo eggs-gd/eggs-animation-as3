@@ -1,5 +1,7 @@
 package gd.eggs.customanim
 {
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.utils.setTimeout;
 
 
@@ -7,7 +9,7 @@ package gd.eggs.customanim
 	 * ...
 	 * @author Dukobpa3
 	 */
-	public class AnimationModel
+	public class AnimationModel extends EventDispatcher
 	{
 		//=====================================================================
 		//      CONSTANTS
@@ -86,7 +88,11 @@ package gd.eggs.customanim
 			{
 				pause = true;
 				if (_loopDelay != -1) setTimeout(unPause, _loopDelay);
-				else _ended = true;
+				else
+				{
+					_ended = true;
+					dispatchEvent(new Event(Event.COMPLETE));
+				}
 			}
 		}
 
