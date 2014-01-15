@@ -63,6 +63,8 @@ package gd.eggs.customanim
 			_activeItems.splice(_activeItems.indexOf(params), 1);
 			delete _itemsById[id];
 
+			trace("deleting", _activeItems.length);
+
 			if (!_activeItems.length) GlobalTimer.removeFrameCallback(frameUpdate);
 		}
 
@@ -83,6 +85,12 @@ package gd.eggs.customanim
 		{
 			GlobalTimer.addFrameCallback(frameUpdate);
 			_pause = false;
+		}
+
+		public static function clean():void
+		{
+			while(_activeItems.length) _activeItems.pop();
+			for (var id:Object in _itemsById) delete _itemsById[id];
 		}
 
 		//=====================================================================
