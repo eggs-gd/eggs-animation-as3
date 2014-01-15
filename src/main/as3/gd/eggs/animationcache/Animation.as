@@ -100,7 +100,7 @@
 		 */
 		public function gotoAndStop(frame:int):void
 		{
-			goto(frame);
+			goToFrame(frame);
 			stop();
 		}
 
@@ -110,7 +110,7 @@
 		 */
 		public function gotoAndPlay(frame:int):void
 		{
-			goto(frame);
+			goToFrame(frame);
 			play();
 		}
 
@@ -127,7 +127,7 @@
 		 */
 		public function nextFrame():void
 		{
-			goto(_currentFrame + 1);
+			goToFrame(_currentFrame + 1);
 		}
 
 		/**
@@ -135,7 +135,7 @@
 		 */
 		public function prevFrame():void
 		{
-			goto(_currentFrame - 1);
+			goToFrame(_currentFrame - 1);
 		}
 
 		/**
@@ -155,7 +155,7 @@
 		 * Переход к кадру
 		 * @param    num
 		 */
-		private function goto(num:int):void
+		private function goToFrame(num:int):void
 		{
 			if (num > totalFrames) num = num % totalFrames;
 			if (!frame) num = totalFrames;
