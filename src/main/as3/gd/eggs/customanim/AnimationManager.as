@@ -63,8 +63,6 @@ package gd.eggs.customanim
 			_activeItems.splice(_activeItems.indexOf(params), 1);
 			delete _itemsById[id];
 
-			trace("deleting", _activeItems.length);
-
 			if (!_activeItems.length) GlobalTimer.removeFrameCallback(frameUpdate);
 		}
 
