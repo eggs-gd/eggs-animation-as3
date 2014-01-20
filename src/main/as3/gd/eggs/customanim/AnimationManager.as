@@ -23,7 +23,6 @@ package gd.eggs.customanim
 
 		private static var _itemsById:Dictionary = new Dictionary();
 
-		private static var _pause:Boolean;
 		//=====================================================================
 		//      CONSTRUCTOR, INIT
 		//=====================================================================
@@ -71,7 +70,6 @@ package gd.eggs.customanim
 		//-----------------------------
 		public static function pauseAll():void
 		{
-			_pause = true;
 			GlobalTimer.removeFrameCallback(frameUpdate);
 			for each(var param:AnimationModel in _activeItems)
 			{
@@ -82,7 +80,6 @@ package gd.eggs.customanim
 		public static function resumeAll():void
 		{
 			GlobalTimer.addFrameCallback(frameUpdate);
-			_pause = false;
 		}
 
 		public static function clean():void
