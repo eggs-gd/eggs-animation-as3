@@ -35,7 +35,7 @@
 		 */
 		public static function getInstance():AnimationCache
 		{
-			return instance ? instance : new AnimationCache();
+			return instance ||= new AnimationCache();
 		}
 
 		/**
